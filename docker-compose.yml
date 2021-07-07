@@ -1,8 +1,8 @@
 version: "3.7"
 
 services:
-  vpn:
-    build: .
+  openvpn-cli:
+    image: cenk1cenk2/openvpn-cli
     # cap_add, security_opt, and volume required for the image to function
     cap_add:
       - net_admin
@@ -16,6 +16,6 @@ services:
       CIPHER: BF-CBC
     volumes:
       - /dev/net:/dev/net:z
-      - ./volumes/openvpn:/vpn
+      - ./volumes/openvpn-cli:/vpn
     command: '-o "--data-ciphers BF-CBC"'
     network_mode: "host"
