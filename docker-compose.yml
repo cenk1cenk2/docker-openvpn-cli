@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  vpn:
+    build: .
+    # cap_add, security_opt, and volume required for the image to function
+    cap_add:
+      - net_admin
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+    stdin_open: true
+    tty: true
+    environment:
+      CIPHER: BF-CBC
+    volumes:
+      - /dev/net:/dev/net:z
+      - ./volumes/openvpn:/vpn
+    command: '-o "--data-ciphers BF-CBC"'
+    network_mode: "host"
